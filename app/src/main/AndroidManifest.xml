@@ -22,7 +22,14 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
+            android:theme="@style/Theme.PokemonLover.NoActionBar"
             android:exported="false"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+
     </application>
 
 </manifest>
