@@ -1,0 +1,4 @@
+#ifndef NAG_NATIVE_LIB_H
+#define NAG_NATIVE_LIB_H
+
+#endif //NAG_NATIVE_LIB_H
