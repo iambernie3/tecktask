@@ -3,7 +3,7 @@ package com.example.pokemonlover.apputil
 import com.example.pokemonlover.models.AbilitiesModel
 import com.example.pokemonlover.models.EffectModel
 
-class StringUtil {
+object StringUtil {
     fun getStringAbilities(arrayList: ArrayList<AbilitiesModel>): String? {
         val builder = StringBuilder()
         for( a in arrayList) {

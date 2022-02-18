@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.aemerse.slider.model.CarouselItem
 import com.example.pokemonlover.R
+import com.example.pokemonlover.apputil.ConnectionChecker
 import com.example.pokemonlover.apputil.ConstantData
 import com.example.pokemonlover.apputil.GsonUtil
 import com.example.pokemonlover.apputil.StringUtil
@@ -90,7 +91,13 @@ class PokemonDetailsActivity : AppCompatActivity(), IPokemonResponse,IEffectsNot
     }
 
     private fun fetchAbilityAndSprites(url:String){
-        volleyRequest.getRequest(url,this)
+        if(ConnectionChecker.isConnectedToNetwork(this)){
+            alert.show()
+            //volleyRequest.getRequest(url,this)
+            pokemonVM.fetchSprites(url, volleyRequest,this)
+        }else{
+            ConnectionChecker.showOffline(this)
+        }
     }
 
     //Response for Ability and Sprites
@@ -100,8 +107,8 @@ class PokemonDetailsActivity : AppCompatActivity(), IPokemonResponse,IEffectsNot
             //Get Abilities
             val jsonArrayAbilities = jsonData.getJSONArray("abilities")
 
-            val listAbilities = GsonUtil().jsonToArrayListAbilities(jsonArrayAbilities.toString(), AbilitiesModel::class.java)
-            val strAbilities = listAbilities?.let { StringUtil().getStringAbilities(it) }
+            val listAbilities = GsonUtil.jsonToArrayListAbilities(jsonArrayAbilities.toString(), AbilitiesModel::class.java)
+            val strAbilities = listAbilities?.let { StringUtil.getStringAbilities(it) }
 
             //Display abilities
             if (strAbilities != null) {
@@ -113,10 +120,13 @@ class PokemonDetailsActivity : AppCompatActivity(), IPokemonResponse,IEffectsNot
 
             // Get Sprites
             val jsonObjectSprites = jsonData.getJSONObject("sprites")
-            val spritesModel = GsonUtil().getJsonModel(jsonObjectSprites.toString(),SpritesModel::class.java)
+            val spritesModel = GsonUtil.getJsonModel(jsonObjectSprites.toString(),SpritesModel::class.java)
             if (spritesModel != null) {
                 preparePokemonImage(spritesModel)
             }
+        }else{
+            alert.dismiss()
+            ConnectionChecker.showResponseMessage(this,data)
         }
     }
 
@@ -163,7 +173,7 @@ class PokemonDetailsActivity : AppCompatActivity(), IPokemonResponse,IEffectsNot
             var effectCtr = 0
             for(l in list) {
                 effectCtr+=1
-                volleyRequest.getRequest(l.url,object: IPokemonResponse {
+                pokemonVM.fetchEffects(l.url, volleyRequest,object:IPokemonResponse{
                     override fun pokemonResponse(statusCode: String, data: String) {
                         if(ConstantData.STATUS_CODE_OK == statusCode) {
                             val jsonData = JSONObject(data)
@@ -174,7 +184,7 @@ class PokemonDetailsActivity : AppCompatActivity(), IPokemonResponse,IEffectsNot
                                 val languageObj = jObject.getJSONObject("language")
                                 val lang = languageObj.getString("name")
                                 if("en" == lang){
-                                  val model = GsonUtil().getJsonModel(jObject.toString(),EffectModel::class.java)
+                                    val model = GsonUtil.getJsonModel(jObject.toString(),EffectModel::class.java)
                                     if (model != null) {
                                         effectList.add(model)
                                         if (effectCtr == list.size){
@@ -183,6 +193,9 @@ class PokemonDetailsActivity : AppCompatActivity(), IPokemonResponse,IEffectsNot
                                     }
                                 }
                             }
+                        }else{
+                            alert.dismiss()
+                            ConnectionChecker.showResponseMessage(this@PokemonDetailsActivity, data)
                         }
                     }
                 })
@@ -192,7 +205,8 @@ class PokemonDetailsActivity : AppCompatActivity(), IPokemonResponse,IEffectsNot
 
     override fun effectNotified(isDone: Boolean) {
         if(isDone){
-            val strEffects = StringUtil().getStringEffects(effectList)
+            alert.dismiss()
+            val strEffects = StringUtil.getStringEffects(effectList)
             binding.tvEffect.text = strEffects
         }
     }

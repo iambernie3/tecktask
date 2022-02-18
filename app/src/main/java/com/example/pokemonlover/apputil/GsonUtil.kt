@@ -11,7 +11,7 @@ import org.json.JSONObject
 import java.lang.reflect.Type
 
 
-class GsonUtil {
+object GsonUtil {
 
     fun <T> jsonToArrayList(json: String?, clazz: Class<T>?): ArrayList<T>? {
         if (TextUtils.isEmpty(json)) {
