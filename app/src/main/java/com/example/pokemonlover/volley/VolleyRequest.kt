@@ -59,14 +59,4 @@ class VolleyRequest(private val context: Context) {
 
         queue.addToRequestQueue(stringReq)
     }
-
-    fun fetchImage(url: String,listener:IImageRequest){
-        val queue = VolleySingleton.getInstance(context)
-        val request = object : ImageRequest(url,Response.Listener {
-            listener.onImageResponse(ConstantData.STATUS_CODE_OK,it)
-        },0,0,ImageView.ScaleType.CENTER,null,Response.ErrorListener {
-            listener.onImageResponse(ConstantData.STATUS_CODE_ERROR,null)
-        }){}
-        queue.addToRequestQueue(request)
-    }
 }

@@ -77,7 +77,40 @@
                 <com.aemerse.slider.ImageCarousel
                     android:id="@+id/carousel"
                     android:layout_width="match_parent"
-                    android:layout_height="260dp" />
+                    android:layout_height="260dp"
+                    app:showTopShadow="true"
+                    app:topShadowAlpha="0.6"
+                    app:topShadowHeight="32dp"
+
+                    app:showBottomShadow="true"
+                    app:bottomShadowAlpha="0.6"
+                    app:bottomShadowHeight="64dp"
+
+                    app:showCaption="true"
+                    app:captionMargin="0dp"
+                    app:captionTextSize="14sp"
+
+                    app:showIndicator="true"
+                    app:indicatorMargin="0dp"
+                    app:imageScaleType="fitCenter"
+                    app:carouselBackground="#00000000"
+                    app:carouselPadding="0dp"
+                    app:carouselPaddingBottom="0dp"
+                    app:carouselPaddingEnd="0dp"
+                    app:carouselPaddingStart="0dp"
+                    app:carouselPaddingTop="0dp"
+
+                    app:carouselType="BLOCK"
+                    app:carouselGravity="CENTER"
+
+                    app:scaleOnScroll="false"
+                    app:scalingFactor="0.15"
+                    app:autoWidthFixing="true"
+                    app:autoPlay="true"
+                    app:autoPlayDelay="3000"
+                    app:infiniteCarousel="true"
+                    app:touchToPause="true"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
