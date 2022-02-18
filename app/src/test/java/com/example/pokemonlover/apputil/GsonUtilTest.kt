@@ -34,7 +34,7 @@ class GsonUtilTest {
     }
 
     /***
-     * ...test with no json data
+     * ...test with empty data
      * ... return null
      */
     @Test

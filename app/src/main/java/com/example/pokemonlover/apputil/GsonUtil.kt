@@ -33,13 +33,13 @@ object GsonUtil {
         return arrayList
     }
 
-    fun <T> jsonToArrayListAbilities(json: String?, clazz: Class<T>?): ArrayList<T>? {
-        if (TextUtils.isEmpty(json)) {
+    fun <T> jsonToArrayListAbilities(strJsonObject: String?, clazz: Class<T>?): ArrayList<T>? {
+        if (strJsonObject.isNullOrEmpty()) {
             return null
         }
 
         val type: Type = object : TypeToken<ArrayList<JsonObject?>?>() {}.type
-        val jsonObjects: ArrayList<JsonObject> = Gson().fromJson(json, type)
+        val jsonObjects: ArrayList<JsonObject> = Gson().fromJson(strJsonObject, type)
         val arrayList: ArrayList<T> = ArrayList()
         for (jsonObject in jsonObjects) {
             arrayList.add(Gson().fromJson(jsonObject.getAsJsonObject("ability"), clazz))
@@ -47,13 +47,13 @@ object GsonUtil {
         return arrayList
     }
 
-    fun <T> getJsonModel(json:String,clazz: Class<T>?): T? {
-        if (TextUtils.isEmpty(json)) {
+    fun <T> getJsonModel(strJsonObject:String?,clazz: Class<T>?): T? {
+        if (strJsonObject.isNullOrEmpty()) {
             return null
         }
 
         val type: Type = object : TypeToken<JsonObject?>() {}.type
-        val jsonObjects: JsonObject = Gson().fromJson(json, type)
+        val jsonObjects: JsonObject = Gson().fromJson(strJsonObject, type)
 
         return Gson().fromJson(jsonObjects,clazz)
     }
