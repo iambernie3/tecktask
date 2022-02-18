@@ -40,4 +40,15 @@ class GsonUtil {
         }
         return arrayList
     }
+
+    fun <T> getJsonModel(json:String,clazz: Class<T>?): T? {
+        if (TextUtils.isEmpty(json)) {
+            return null
+        }
+
+        val type: Type = object : TypeToken<JsonObject?>() {}.type
+        val jsonObjects: JsonObject = Gson().fromJson(json, type)
+
+        return Gson().fromJson(jsonObjects,clazz)
+    }
 }

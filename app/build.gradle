@@ -55,6 +55,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.github.akshaaatt:Sliding-Carousel:1.0.4'
 
     //without this app crash exception Cannot create an instance of class ViewModel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
