@@ -5,6 +5,7 @@ import android.util.Log
 import com.example.pokemonlover.models.PokemonModel
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import org.json.JSONException
 import org.json.JSONObject
@@ -13,17 +14,22 @@ import java.lang.reflect.Type
 
 object GsonUtil {
 
-    fun <T> jsonToArrayList(json: String?, clazz: Class<T>?): ArrayList<T>? {
-        if (TextUtils.isEmpty(json)) {
+    fun <T> jsonToArrayList(strJsonArray: String?, clazz: Class<T>?): ArrayList<T>? {
+        val arrayList: ArrayList<T> = ArrayList()
+        if(strJsonArray.isNullOrEmpty()){
             return null
         }
 
-        val type: Type = object : TypeToken<ArrayList<JsonObject?>?>() {}.type
-        val jsonObjects: ArrayList<JsonObject> = Gson().fromJson(json, type)
-        val arrayList: ArrayList<T> = ArrayList()
-        for (jsonObject in jsonObjects) {
-            arrayList.add(Gson().fromJson(jsonObject, clazz))
+        try {
+            val type: Type = object : TypeToken<ArrayList<JsonObject?>?>() {}.type
+            val jsonObjects: ArrayList<JsonObject> = Gson().fromJson(strJsonArray, type)
+            for (jsonObject in jsonObjects) {
+                arrayList.add(Gson().fromJson(jsonObject, clazz))
+            }
+        }catch (e: JsonSyntaxException){
+            return null
         }
+
         return arrayList
     }
 
