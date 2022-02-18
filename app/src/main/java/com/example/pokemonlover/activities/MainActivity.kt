@@ -1,15 +1,14 @@
 package com.example.pokemonlover.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.GridLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokemonlover.adapters.PokemonListAdapter
 import com.example.pokemonlover.apputil.ConstantData
-import com.example.pokemonlover.apputil.PokemonList
+import com.example.pokemonlover.apputil.GsonUtil
 import com.example.pokemonlover.databinding.ActivityMainBinding
 import com.example.pokemonlover.factories.PokemonFactories
 import com.example.pokemonlover.interfaces.IPokemonResponse
@@ -17,8 +16,6 @@ import com.example.pokemonlover.interfaces.IPokemonSelected
 import com.example.pokemonlover.models.PokemonModel
 import com.example.pokemonlover.viewmodels.PokemonVM
 import com.example.pokemonlover.volley.VolleyRequest
-import com.google.gson.Gson
-import org.json.JSONException
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(),IPokemonResponse,IPokemonSelected {
@@ -65,12 +62,19 @@ class MainActivity : AppCompatActivity(),IPokemonResponse,IPokemonSelected {
 
     override fun pokemonResponse(statusCode: String, data: String) {
         if(ConstantData.STATUS_CODE_OK == statusCode) {
-            val list = PokemonList().getPokemonList(data)
-            setPokemonAdapter(list)
+            val jsonData = JSONObject(data)
+            val jsonArray = jsonData.getJSONArray("results")
+            val list = GsonUtil().jsonToArrayList(jsonArray.toString(),PokemonModel::class.java)
+            if (list != null) {
+                setPokemonAdapter(list)
+            }
         }
     }
 
     override fun onSelectedPokemon(model: PokemonModel) {
-
+        val intent = Intent(this,PokemonDetailsActivity::class.java)
+        intent.putExtra("pokemon",model.name)
+        intent.putExtra("url",model.url)
+        startActivity(intent)
     }
 }

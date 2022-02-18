@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">PokemonLover</string>
     <string name="list_of_pokemon">List of Pokemon</string>
+    <string name="pokemon_image">pokemon image</string>
+    <string name="abilities">Abilities</string>
+    <string name="pokemon_details">Pokemon details</string>
+    <string name="please_wait">please wait...</string>
 </resources>

@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pokemonlover">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PokemonLover">
         <activity
+            android:name=".activities.PokemonDetailsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PokemonLover.NoActionBar"/>
+        <activity
             android:name=".activities.SplashScreenActivity"
-            android:theme="@style/Theme.PokemonLover.NoActionBar"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.PokemonLover.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,14 +27,12 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Theme.PokemonLover.NoActionBar"
-            android:exported="false"/>
+            android:exported="true"
+            android:theme="@style/Theme.PokemonLover.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
     </application>
 
 </manifest>

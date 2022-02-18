@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Live Projects/PokemonLover/app/src/main/res/layout/activity_splash_screen.xml" value="0.20416666666666666" />
         <entry key="..\:/Live Projects/android projects/PokemonLover/app/src/main/res/layout/activity_main.xml" value="0.14" />
+        <entry key="..\:/Live Projects/android projects/PokemonLover/app/src/main/res/layout/activity_pokemon_details.xml" value="0.25" />
         <entry key="..\:/Live Projects/android projects/PokemonLover/app/src/main/res/layout/pokemon_list_adapter_layout.xml" value="0.15" />
+        <entry key="..\:/Live Projects/android projects/PokemonLover/app/src/main/res/layout/progress_bar_layout_please_wait.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

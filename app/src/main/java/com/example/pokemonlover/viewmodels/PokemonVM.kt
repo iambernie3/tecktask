@@ -15,4 +15,20 @@ class PokemonVM(): ViewModel() {
             }
         })
     }
+
+    fun fetchSprites(url:String,volleyRequest: VolleyRequest,listener: IPokemonResponse) {
+        volleyRequest.getRequest(url,object:IPokemonResponse {
+            override fun pokemonResponse(statusCode: String, data: String) {
+                listener.pokemonResponse(statusCode,data)
+            }
+        })
+    }
+
+    fun fetchEffects(url:String,volleyRequest: VolleyRequest,listener: IPokemonResponse) {
+        volleyRequest.getRequest(url,object:IPokemonResponse {
+            override fun pokemonResponse(statusCode: String, data: String) {
+                listener.pokemonResponse(statusCode,data)
+            }
+        })
+    }
 }
